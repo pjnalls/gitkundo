@@ -5,6 +5,12 @@
   "references": [
     {
       "path": "./apps/frontend"
+    },
+    {
+      "path": "./apps/backend/api-e2e"
+    },
+    {
+      "path": "./apps/backend/api"
     }
   ]
 }
