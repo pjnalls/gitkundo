@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:api": "nx serve api"
+    "serve:api": "nx serve api",
+    "e2e:api": "nx e2e api-e2e"
   },
   "private": true,
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@swc/jest": "^0.2.39",
     "@testing-library/react-native": "~13.2.0",
     "@types/express": "^4.17.21",
     "@types/jest": "^30.0.0",
