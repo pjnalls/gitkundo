@@ -2,6 +2,28 @@
   "name": "@gitkundo/frontend",
   "version": "0.0.1",
   "private": true,
+  "nx": {
+    "targets": {
+      "start": {
+        "executor": "@nx/expo:start",
+        "options": {}
+      },
+      "build": {
+        "executor": "@nx/expo:prebuild",
+        "options": {}
+      },
+      "sync-deps": {
+        "executor": "@nx/expo:sync-deps"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "options": {
+          "jestConfig": "apps/frontend/jest.config.ts",
+          "passWithNoTests": true
+        }
+      }
+    }
+  },
   "scripts": {
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/frontend"
   },

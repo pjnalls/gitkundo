@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "e2e:api": "nx e2e api-e2e",
     "serve:api": "nx serve api",
-    "e2e:api": "nx e2e api-e2e"
+    "start:app": "nx start frontend",
+    "test:app": "nx test frontend"
+
   },
   "private": true,
   "devDependencies": {

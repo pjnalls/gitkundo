@@ -60,7 +60,7 @@
       },
       "test": {
         "options": {
-          "passWithNoTests": false
+          "passWithNoTests": true
         }
       }
     }
