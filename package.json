@@ -7,7 +7,6 @@
     "serve:api": "nx serve api",
     "start:app": "nx start frontend",
     "test:app": "nx test frontend"
-
   },
   "private": true,
   "devDependencies": {
@@ -25,6 +24,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@svgr/webpack": "^8.0.1",
     "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.6.0",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@swc/jest": "^0.2.39",
@@ -46,6 +46,7 @@
     "jest-environment-node": "^30.0.2",
     "jest-expo": "~53.0.7",
     "jest-util": "^30.0.2",
+    "jsonc-eslint-parser": "^2.1.0",
     "metro-config": "~0.82.4",
     "metro-resolver": "~0.82.4",
     "nx": "21.4.0",
@@ -61,7 +62,8 @@
   "workspaces": [
     "packages/*",
     "apps/*",
-    "apps/backend/*"
+    "apps/backend/*",
+    "libs/backend/*"
   ],
   "dependencies": {
     "@expo/metro-config": "~0.20.14",
