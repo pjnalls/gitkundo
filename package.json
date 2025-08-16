@@ -4,12 +4,15 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@expo/cli": "~0.24.14",
+    "@nx/expo": "^21.4.0",
     "@nx/js": "21.4.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "metro-config": "~0.82.4",
+    "metro-resolver": "~0.82.4",
     "nx": "21.4.0",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
@@ -17,5 +20,11 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "expo": "~53.0.10",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.3"
+  }
 }
