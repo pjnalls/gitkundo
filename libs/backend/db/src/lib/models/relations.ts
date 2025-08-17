@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm/relations";
-import { users, repositories, commits, branches, issues, posts, likes, comments, follows } from "./schema";
+import { users, repositories, commits, branches, issues, posts, likes, comments, follows } from "./schema.js";
 
 export const repositoriesRelations = relations(repositories, ({one, many}) => ({
 	user: one(users, {

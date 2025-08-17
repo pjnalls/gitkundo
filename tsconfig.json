@@ -17,6 +17,9 @@
     },
     {
       "path": "./libs/backend/db"
+    },
+    {
+      "path": "./libs/backend/db"
     }
   ]
 }

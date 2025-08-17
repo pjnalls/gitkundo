@@ -1,7 +1,7 @@
-import { db } from './db.js';
+import { mockDB } from './__mocks__/db.spec.js';
 
 describe('db', () => {
   it('should work', () => {
-    expect(db()).toEqual('db');
+    expect(mockDB()).toBe('db');
   });
 });

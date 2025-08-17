@@ -4,8 +4,13 @@
     "outDir": "out-tsc/@gitkundo/api-e2e",
     "esModuleInterop": true,
     "noUnusedLocals": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "composite": true
   },
   "include": ["jest.config.ts", "src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../libs/backend/db/tsconfig.json"
+    },
+  ]
 }

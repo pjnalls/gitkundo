@@ -1,9 +1,4 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
-import dotenv from 'dotenv';
-
-import { getUsers } from './services/users';
-
-dotenv.config();
 
 export const db = drizzle({
   connection: {
@@ -14,7 +9,3 @@ export const db = drizzle({
     ssl: true,
   },
 });
-
-const result = await getUsers(db);
-
-console.log(result);
