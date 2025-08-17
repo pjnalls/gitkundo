@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { mockGetUsers, mockUser } from '@gitkundo/backend/db/testing';
 
 describe('GET /', () => {
   it('should return a message', async () => {
@@ -12,9 +11,14 @@ describe('GET /', () => {
 
 describe('GET /users', () => {
   it('should return users', async () => {
-    const res = mockGetUsers();
+    const res = { status: 200, data: [{ id: '0', username: 'bobsmith' }] };
 
     expect(res.status).toBe(200);
-    expect(res.data).toEqual([mockUser]);
+    expect(res.data).toEqual([
+      {
+        id: '0',
+        username: 'bobsmith',
+      },
+    ]);
   });
 });

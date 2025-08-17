@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "dist",
     "types": ["node", "express"],
-    "composite": true,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
@@ -17,7 +16,5 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "references": [
-    { "path": "../../../libs/backend/db/tsconfig.json" }
-  ]
+  "references": []
 }

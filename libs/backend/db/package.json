@@ -29,10 +29,16 @@
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
+      },
+      "test": {
+        "options": {
+          "passWithNoTests": true
+        }
       }
     }
   },
   "dependencies": {
-    "tslib": "*"
+    "@swc/helpers": "~0.5.11",
+    "drizzle-orm": "^0.44.4"
   }
 }

@@ -1,8 +1,7 @@
-/* eslint-disable */
 import { readFileSync } from 'fs';
 
 // Reading the SWC compilation config for the spec files
-const swcJestConfig = JSON.parse(
+const swcJestConfig: { swcrc: boolean } & unknown = JSON.parse(
   readFileSync(`${__dirname}/.spec.swcrc`, 'utf-8')
 );
 

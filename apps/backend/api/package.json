@@ -2,7 +2,6 @@
   "name": "@gitkundo/api",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "nx": {
     "targets": {
       "prune-lockfile": {
