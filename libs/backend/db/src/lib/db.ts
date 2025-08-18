@@ -6,7 +6,7 @@ import * as relations from './models/relations.js';
 const client = new Pool({
   connectionString: `postgresql://${process.env.DATABASE_USERNAME as string}:${
     process.env.DATABASE_PASSWORD as string
-  }@localhost:${process.env.DATABASE_POST as string}/${
+  }@localhost:${process.env.DATABASE_PORT as string}/${
     process.env.DATABASE_NAME as string
   }`,
 });

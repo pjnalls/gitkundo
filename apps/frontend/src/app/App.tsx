@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,23 +17,38 @@ import { users as userModel } from '@gitkundo/db';
 export const App = () => {
   const [whatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
-  // const [users, setUsers] = useState<Array<typeof userModel.$inferSelect>>();
-  const users: { username: string; profilePictureUrl: string; bio: string }[] =
-     [];
+  const [users, setUsers] = useState<Array<typeof userModel.$inferSelect>>();
+  // const users: { username: string; profilePictureUrl: string; bio: string }[] =
+  //   [];
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await fetch(
-  //       `http://10.0.0.53:${process.env.DATABASE_PORT ?? 3333}/api/users`
-  //     );
-  //     if (!response?.ok) {
-  //       throw new Error(`Response status: ${response?.status}`);
-  //     }
-  //     const result = await response.json();
-  //     console.log(result);
-  //     setUsers(result);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `http://10.0.0.53:${process.env.DATABASE_PORT ?? 3333}/api/users`
+        );
+
+        if (!response?.ok) {
+          throw new Error(`Response status: ${response?.status}`);
+        }
+        const result = await response.json();
+        setUsers(result.data);
+      } catch (error) {
+        setUsers([
+          {
+            username: 'pjnalls',
+            bio: 'I\'m a duck',
+            createdAt: new Date().toLocaleString(),
+            updatedAt: new Date().toLocaleString(),
+            email: 'pjnalls.fake@gmail.com',
+            id: '0',
+            passwordHash: error as string,
+            profilePictureUrl: '',
+          },
+        ]);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -84,7 +99,7 @@ export const App = () => {
                     />
                   </Svg>
                   <Text style={[styles.textLg, styles.heroTitleText]}>
-                    {(users && users[0]?.bio) ?? "I'm a duck."}
+                    {(users && users[0]?.bio) ?? "I'm only human."}
                   </Text>
                 </View>
                 <TouchableOpacity
