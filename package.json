@@ -5,10 +5,11 @@
   "scripts": {
     "e2e:api": "npx nx e2e api-e2e",
     "serve:api": "npx nx serve api",
+    "serve:all": "npx nx run-many -t serve",
     "start:app": "npx nx start frontend",
     "test:app": "npx nx test frontend",
     "introspect:db": "npx drizzle-kit introspect",
-    "run-many:nx": "npx nx run-many -t lint test build typecheck"
+    "many:nx": "npx nx run-many -t lint test build typecheck"
   },
   "private": true,
   "devDependencies": {

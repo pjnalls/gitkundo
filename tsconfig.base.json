@@ -20,8 +20,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@gitkundo/backend/db": ["./libs/backend/db/src/index.ts"],
-      "@gitkundo/backend/db/testing": ["./libs/backend/db/src/index.spec.ts"]
+      "@gitkundo/db": ["libs/backend/db/src/index.ts"],
+      "@gitkundo/db/*": ["libs/backend/db/src/*"]
     }
   }
 }

@@ -2,6 +2,7 @@
   "name": "@gitkundo/db",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
-    "drizzle-orm": "^0.44.4"
+    "drizzle-orm": "^0.44.4",
+    "pg": "^8.16.3"
   }
 }

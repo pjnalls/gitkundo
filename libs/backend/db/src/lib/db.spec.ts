@@ -1,4 +1,4 @@
-import { mockDB, mockGetUsers, mockUser } from './__mocks__/db.spec';
+import { mockDB, mockGetUsers, mockUser } from './__mocks__/db.spec.js';
 
 describe('db', () => {
   it('should work', () => {

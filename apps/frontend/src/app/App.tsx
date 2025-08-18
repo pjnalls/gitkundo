@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,12 +8,32 @@ import {
   StatusBar,
   TouchableOpacity,
   Linking,
+  Image,
 } from 'react-native';
-import Svg, { G, Path } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
+
+import { users as userModel } from '@gitkundo/db';
 
 export const App = () => {
-  const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
+  const [whatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
+  // const [users, setUsers] = useState<Array<typeof userModel.$inferSelect>>();
+  const users: { username: string; profilePictureUrl: string; bio: string }[] =
+     [];
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await fetch(
+  //       `http://10.0.0.53:${process.env.DATABASE_PORT ?? 3333}/api/users`
+  //     );
+  //     if (!response?.ok) {
+  //       throw new Error(`Response status: ${response?.status}`);
+  //     }
+  //     const result = await response.json();
+  //     console.log(result);
+  //     setUsers(result);
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -32,54 +51,63 @@ export const App = () => {
           style={styles.scrollView}
         >
           <View style={styles.section}>
-            <Text style={styles.textLg}>Hello there,</Text>
             <Text
-              style={[styles.textXL, styles.appTitleText]}
+              style={[styles.textXL, styles.appTitleText, styles.textColor]}
               testID="heading"
               role="heading"
             >
-              Welcome Frontend 👋
+              Hi There! I'm {(users && users[0]?.username) ?? 'Preston'} 🦆
             </Text>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>
-              <View style={styles.heroTitle}>
-                <Svg
-                  width={32}
-                  height={32}
-                  stroke="hsla(162, 47%, 50%, 1)"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <Path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                  />
-                </Svg>
-                <Text style={[styles.textLg, styles.heroTitleText]}>
-                  You're up and running
-                </Text>
+              <View style={styles.profilePicture}>
+                <Image
+                  source={require('../../assets/images/favicon.png')}
+                  width={60}
+                />
               </View>
-              <TouchableOpacity
-                style={styles.whatsNextButton}
-                onPress={() => {
-                  scrollViewRef.current?.scrollTo({
-                    x: 0,
-                    y: whatsNextYCoord,
-                  });
-                }}
-              >
-                <Text style={[styles.textMd, styles.textCenter]}>
-                  What's next?
-                </Text>
-              </TouchableOpacity>
+              <View>
+                <View style={styles.heroTitle}>
+                  <Svg
+                    width={32}
+                    height={32}
+                    stroke="hsla(162, 47%, 50%, 1)"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <Path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                    />
+                  </Svg>
+                  <Text style={[styles.textLg, styles.heroTitleText]}>
+                    {(users && users[0]?.bio) ?? "I'm a duck."}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.whatsNextButton}
+                  onPress={() => {
+                    scrollViewRef.current?.scrollTo({
+                      x: 0,
+                      y: whatsNextYCoord,
+                    });
+                  }}
+                >
+                  <Text style={[styles.textMd, styles.textCenter]}>
+                    What's next?
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.section}>
             <View style={[styles.shadowBox]}>
-              <Text style={[styles.marginBottomMd, styles.textLg]}>
+              <Text
+                style={[styles.marginBottomMd, styles.textLg, styles.textColor]}
+              >
                 Learning materials
               </Text>
               <TouchableOpacity
@@ -93,7 +121,7 @@ export const App = () => {
                 <Svg
                   width={24}
                   height={24}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -105,7 +133,9 @@ export const App = () => {
                   />
                 </Svg>
                 <View style={styles.listItemTextContainer}>
-                  <Text style={[styles.textMd]}>Documentation</Text>
+                  <Text style={[styles.textMd, styles.textColor]}>
+                    Documentation
+                  </Text>
                   <Text style={[styles.text2XS, styles.textSubtle]}>
                     Everything is in there
                   </Text>
@@ -113,7 +143,7 @@ export const App = () => {
                 <Svg
                   width={18}
                   height={18}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -134,7 +164,7 @@ export const App = () => {
                 <Svg
                   width={24}
                   height={24}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -146,7 +176,7 @@ export const App = () => {
                   />
                 </Svg>
                 <View style={styles.listItemTextContainer}>
-                  <Text style={[styles.textMd]}>Blog</Text>
+                  <Text style={[styles.textMd, styles.textColor]}>Blog</Text>
                   <Text style={[styles.text2XS, styles.textSubtle]}>
                     Changelog, features & events
                   </Text>
@@ -154,7 +184,7 @@ export const App = () => {
                 <Svg
                   width={18}
                   height={18}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -174,11 +204,13 @@ export const App = () => {
                   )
                 }
               >
-                <Svg width={24} height={24} fill="#000000" viewBox="0 0 24 24">
+                <Svg width={24} height={24} fill="#fff" viewBox="0 0 24 24">
                   <Path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </Svg>
                 <View style={styles.listItemTextContainer}>
-                  <Text style={[styles.textMd]}>Youtube channel</Text>
+                  <Text style={[styles.textMd, styles.textColor]}>
+                    Youtube channel
+                  </Text>
                   <Text style={[styles.text2XS, styles.textSubtle]}>
                     Nx Show, talks & tutorials
                   </Text>
@@ -186,7 +218,7 @@ export const App = () => {
                 <Svg
                   width={18}
                   height={18}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -209,7 +241,7 @@ export const App = () => {
                 <Svg
                   width={24}
                   height={24}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -221,7 +253,9 @@ export const App = () => {
                   />
                 </Svg>
                 <View style={styles.listItemTextContainer}>
-                  <Text style={[styles.textMd]}>Interactive tutorials</Text>
+                  <Text style={[styles.textMd, styles.textColor]}>
+                    Interactive tutorials
+                  </Text>
                   <Text style={[styles.text2XS, styles.textSubtle]}>
                     Create an app, step by step
                   </Text>
@@ -229,7 +263,7 @@ export const App = () => {
                 <Svg
                   width={18}
                   height={18}
-                  stroke="#000000"
+                  stroke="#fff"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -243,7 +277,7 @@ export const App = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.section}>
+          {/* <View style={styles.section}>
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL('https://nx.dev/nx-cloud?utm_source=nx-project')
@@ -596,7 +630,7 @@ export const App = () => {
                 />
               </Svg>
             </View>
-          </View>
+          </View> */}
         </ScrollView>
       </SafeAreaView>
     </>
@@ -604,7 +638,7 @@ export const App = () => {
 };
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#000',
   },
   codeBlock: {
     backgroundColor: 'rgba(55, 65, 81, 1)',
@@ -665,11 +699,13 @@ const styles = StyleSheet.create({
   section: {
     marginVertical: 12,
     marginHorizontal: 12,
+    backgroundColor: '#000',
   },
   shadowBox: {
-    backgroundColor: 'white',
+    color: '#fff',
+    backgroundColor: '#000',
     borderRadius: 24,
-    shadowColor: 'black',
+    shadowColor: '#fff',
     shadowOpacity: 0.15,
     shadowOffset: {
       width: 1,
@@ -697,6 +733,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#143055',
     padding: 36,
     marginBottom: 24,
+    flexDirection: 'row',
   },
   heroTitle: {
     flex: 1,
@@ -726,7 +763,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     paddingVertical: 16,
     borderRadius: 8,
-    width: '50%',
+    width: '100%',
     marginTop: 24,
   },
   learning: {
@@ -735,6 +772,12 @@ const styles = StyleSheet.create({
   love: {
     marginTop: 12,
     justifyContent: 'center',
+  },
+  textColor: {
+    color: '#fff',
+  },
+  profilePicture: {
+    width: 60,
   },
 });
 
