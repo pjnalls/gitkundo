@@ -9,7 +9,8 @@
     "start:app": "npx nx start frontend",
     "test:app": "npx nx test frontend",
     "introspect:db": "npx drizzle-kit introspect",
-    "many:nx": "npx nx run-many -t lint test build typecheck"
+    "many:nx": "npx nx run-many -t lint test build typecheck",
+    "prepare": "husky"
   },
   "private": true,
   "devDependencies": {
@@ -46,6 +47,7 @@
     "eslint-plugin-jsx-a11y": "6.10.1",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "jest-environment-node": "^30.0.2",
