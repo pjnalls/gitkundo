@@ -9,7 +9,7 @@
     "start:app": "npx nx start frontend",
     "test:app": "npx nx test frontend",
     "introspect:db": "npx drizzle-kit introspect",
-    "many:nx": "npx nx run-many -t lint test build typecheck",
+    "many:nx": "npx nx run-many -t lint test build typecheck --no-cloud",
     "prepare": "husky"
   },
   "private": true,
