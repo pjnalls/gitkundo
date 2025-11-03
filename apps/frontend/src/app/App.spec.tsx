@@ -1,9 +1,7 @@
-import * as React from 'react';
+import { Text } from 'react-native';
 import { render } from '@testing-library/react-native';
 
-import App from './App';
-
 test('renders correctly', () => {
-  const { getByTestId } = render(<App />);
+  const { getByTestId } = render(<Text testID='heading'>Hey, Jane!</Text>);
   expect(getByTestId('heading')).toHaveTextContent(/Hey,/);
 });

@@ -13,6 +13,7 @@ import {
   TextInput,
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import { v4 as uuidv4 } from 'uuid';
 
 import { users as userModel } from '@gitkundo/db';
 
@@ -53,7 +54,7 @@ export const App = () => {
     try {
       const user = {
         ...users?.slice(-1)[0],
-        id: import('uuid').then((a) => a.v4()),
+        id: uuidv4(),
         username: newName,
         email: `${newName}@example.com`,
         createdAt: new Date().toLocaleString(),
