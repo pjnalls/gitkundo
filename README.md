@@ -2,7 +2,7 @@
     <img 
         alt="Martial artist doing a flying kick in the air" 
         src="logo.png" 
-        width="240px"
+        width="160px"
     />
 </div>
 
@@ -10,15 +10,31 @@
     Gitkundo
 </h1>
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+    An all-in-one, full-stack TypeScript development environment: 
+    
+    ✅ One language. 
+    ✅ One integrated terminal. 
+    ✅ One integrated browser. 
+    ✅ One repo... 
+    
+    All in one window! ✨
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Screenshot
+
+<div align="center">
+<img
+    alt="an all-in-one, full-stack TypeScript development environment"
+    src="./docs/screenshot.png"
+    />
+</div>
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
-## Finish your CI setup
+## Run app, API, and database all in the same terminal instance
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/E6FxpjZp9C)
+```sh
+npm run serve:all
+```
 
 ## Generate a library
 
