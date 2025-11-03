@@ -10,14 +10,14 @@
     Gitkundo
 </h1>
 
-    An all-in-one, full-stack TypeScript development environment: 
-    
-    ✅ One language. 
-    ✅ One integrated terminal. 
-    ✅ One integrated browser. 
-    ✅ One repo... 
-    
-    All in one window! ✨
+An all-in-one, full-stack TypeScript development environment: 
+
+✅ One language.<br/>
+✅ One integrated terminal.<br/>
+✅ One integrated browser.<br/>
+✅ One repo... 
+
+All in one window! ✨
 
 ## Screenshot
 
@@ -30,7 +30,38 @@
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
-## Run app, API, and database all in the same terminal instance
+## Getting Started
+
+### 1. Clone repo
+```sh
+git clone git@github.com:pjnalls/gitkundo.git
+```
+
+### 2. Install dependencies
+```sh
+npm install
+```
+
+### 3. Add a `.env` file and variables at `./`
+```
+API_PORT=3333
+DATABASE_PORT=5432
+DATABASE_NAME=example_db
+DATABASE_USERNAME=janedoe
+DATABASE_PASSWORD=passwordexample123
+BROWSER=none
+```
+
+### 4. Update `serve:all` script in `package.json`
+```diff
+"scripts": {
+    ...
+-   "serve:all": "psql gitkundo_db & nx run-many -t serve",
++   "serve:all": "psql example_db & nx run-many -t serve",
+    ...
+}
+```
+### 5. Run app, API, and database all in the same terminal instance
 
 ```sh
 npm run serve:all
