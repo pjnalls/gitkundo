@@ -9,45 +9,88 @@ import {
   TouchableOpacity,
   Linking,
   Image,
+  Platform,
+  TextInput,
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { users as userModel } from '@gitkundo/db';
 
 export const App = () => {
-  const [whatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
   const [users, setUsers] = useState<Array<typeof userModel.$inferSelect>>();
-  // const users: { username: string; profilePictureUrl: string; bio: string }[] =
-  //   [];
+  const [newName, setNewName] = useState<string>('');
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          `http://10.0.0.53:${process.env.DATABASE_PORT ?? 3333}/api/users`
-        );
+  const handleGetUsers = async () => {
+    try {
+      const response = await fetch(
+        Platform.OS === 'web'
+          ? `http://localhost:${process.env.DATABASE_PORT ?? 3333}/api/users`
+          : `http://10.0.0.13:${process.env.DATABASE_PORT ?? 3333}/api/users`
+      );
 
-        if (!response?.ok) {
-          throw new Error(`Response status: ${response?.status}`);
-        }
-        const result = await response.json();
-        setUsers(result.data);
-      } catch (error) {
-        setUsers([
-          {
-            username: 'pjnalls',
-            bio: 'I\'m a duck',
-            createdAt: new Date().toLocaleString(),
-            updatedAt: new Date().toLocaleString(),
-            email: 'pjnalls.fake@gmail.com',
-            id: '0',
-            passwordHash: error as string,
-            profilePictureUrl: '',
-          },
-        ]);
+      if (!response?.ok) {
+        throw new Error(`Response status: ${response?.status}`);
       }
-    })();
+      const result = await response.json();
+      setUsers(result.data);
+    } catch (error) {
+      setUsers([
+        {
+          username: 'pjnalls',
+          bio: 'The app is ready yet!',
+          createdAt: new Date().toLocaleString(),
+          updatedAt: new Date().toLocaleString(),
+          email: 'pjnalls.fake@gmail.com',
+          id: '0',
+          passwordHash: error as string,
+          profilePictureUrl: '',
+        },
+      ]);
+    }
+  };
+  const handleCreateUser = async () => {
+    try {
+      const user = {
+        ...users?.slice(-1)[0],
+        id: import('uuid').then((a) => a.v4()),
+        username: newName,
+        email: `${newName}@example.com`,
+        createdAt: new Date().toLocaleString(),
+        updatedAt: new Date().toLocaleString(),
+      };
+      console.log('Sending user data to backend:\n', user);
+      await fetch(
+        Platform.OS === 'web'
+          ? `http://localhost:${process.env.DATABASE_PORT ?? 3333}/api/user`
+          : `http://10.0.0.13:${process.env.DATABASE_PORT ?? 3333}/api/user`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        }
+      );
+      handleGetUsers();
+    } catch (error) {
+      setUsers([
+        {
+          username: 'pjnalls',
+          bio: 'The app is ready yet!',
+          createdAt: new Date().toLocaleString(),
+          updatedAt: new Date().toLocaleString(),
+          email: 'pjnalls.fake@gmail.com',
+          id: '0',
+          passwordHash: error as string,
+          profilePictureUrl: '',
+        },
+      ]);
+    }
+  };
+  useEffect(() => {
+    handleGetUsers();
   }, []);
 
   return (
@@ -71,7 +114,7 @@ export const App = () => {
               testID="heading"
               role="heading"
             >
-              Hi There! I'm {(users && users[0]?.username) ?? 'Preston'} 🦆
+              Hey, {(users && users.slice(-1)[0]?.username) ?? 'John Doe'} 👋
             </Text>
           </View>
           <View style={styles.section}>
@@ -99,23 +142,32 @@ export const App = () => {
                     />
                   </Svg>
                   <Text style={[styles.textLg, styles.heroTitleText]}>
-                    {(users && users[0]?.bio) ?? "I'm only human."}
+                    {(users &&
+                      new Date(
+                        users.slice(-1)[0]?.updatedAt as string
+                      ).toLocaleString()) ??
+                      "I'm only human."}
                   </Text>
                 </View>
-                <TouchableOpacity
-                  style={styles.whatsNextButton}
-                  onPress={() => {
-                    scrollViewRef.current?.scrollTo({
-                      x: 0,
-                      y: whatsNextYCoord,
-                    });
-                  }}
-                >
-                  <Text style={[styles.textMd, styles.textCenter]}>
-                    What's next?
-                  </Text>
-                </TouchableOpacity>
               </View>
+            </View>
+            <View>
+              <Text style={[styles.textLg, styles.textColor]}>New Name</Text>
+              <TextInput
+                style={[styles.textInput, styles.textColor]}
+                placeholderTextColor={styles.textInputText.color}
+                placeholder="Enter your new name"
+                value={newName}
+                onChangeText={(text) => {
+                  setNewName(text);
+                }}
+              />
+              <TouchableOpacity
+                style={styles.whatsNextButton}
+                onPress={handleCreateUser}
+              >
+                <Text style={[styles.textMd, styles.textCenter]}>Save</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.section}>
@@ -762,7 +814,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginVertical: 12,
   },
-
+  textInput: {
+    backgroundColor: '#143055',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  textInputText: {
+    color: '#ffffff',
+  },
   connectToCloudButton: {
     backgroundColor: 'rgba(20, 48, 85, 1)',
     paddingVertical: 10,

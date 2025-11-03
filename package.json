@@ -5,8 +5,8 @@
   "scripts": {
     "e2e:api": "npx nx e2e api-e2e",
     "serve:api": "npx nx serve api",
-    "serve:all": "npx nx run-many -t serve",
-    "start:app": "npx nx start frontend",
+    "serve:all": "psql gitkundo_db & nx run-many -t serve",
+    "serve:app": "npx nx start frontend",
     "test:app": "npx nx test frontend",
     "introspect:db": "npx drizzle-kit introspect",
     "many:nx": "npx nx run-many -t lint test build typecheck --no-cloud",
@@ -75,6 +75,7 @@
     "@expo/metro-config": "~0.20.14",
     "@expo/metro-runtime": "~5.0.4",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
     "expo": "~53.0.10",
@@ -88,6 +89,7 @@
     "react-native": "0.79.3",
     "react-native-svg": "~15.11.2",
     "react-native-svg-transformer": "~1.5.1",
-    "react-native-web": "~0.20.0"
+    "react-native-web": "~0.20.0",
+    "uuid": "^13.0.0"
   }
 }
