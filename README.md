@@ -19,7 +19,7 @@
     
     All in one window! ✨
 
-Screenshot:
+## Screenshot
 
 <div align="center">
 <img
