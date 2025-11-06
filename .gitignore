@@ -60,8 +60,5 @@ web-build/
 cache/
 test-output
 
-# Database
-*.sql
-
 # Environment
 .env

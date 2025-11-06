@@ -46,26 +46,33 @@ npm install
 ```
 API_PORT=3333
 DATABASE_PORT=5432
-DATABASE_NAME=example_db
+DATABASE_NAME=gitkundo_db
 DATABASE_USERNAME=janedoe
 DATABASE_PASSWORD=passwordexample123
 BROWSER=none
 ```
 
-### 4. Update `serve:all` script in `package.json`
-```diff
-"scripts": {
-    ...
--   "serve:all": "psql gitkundo_db & nx run-many -t serve",
-+   "serve:all": "psql example_db & nx run-many -t serve",
-    ...
-}
+### 4. `CREATE DATABASE gitkundo_db` in PostgreSQL
+
+### 5. Create tables inside of `gitkundo_db`
+
+```sh
+psql -U <username> -d gitkundo_db -f /create_gitkundo_db.sql
 ```
-### 5. Run app, API, and database all in the same terminal instance
+
+### 6. Run app, API, and database all in the same terminal instance
 
 ```sh
 npm run serve:all
 ```
+
+### 7. Open a simple browser if you're using VSCode
+
+**a.** Open the Command Palette by pressing `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS).
+
+**b.** Type "Simple Browser" and select "Simple Browser: Show" from the options.
+
+**c.** Enter the URL you wish to open (e.g., http://localhost:8081) and press Enter. The web page will then render within a new tab in your VS Code editor area. 
 
 ## Generate a library
 
