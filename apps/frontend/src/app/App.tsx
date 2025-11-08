@@ -15,28 +15,28 @@ import {
 import Svg, { Path } from 'react-native-svg';
 import { v4 as uuidv4 } from 'uuid';
 
-import { users as userModel } from '@gitkundo/db';
+import { users } from '@gitkundo/db';
 
 export const App = () => {
   const scrollViewRef = useRef<null | ScrollView>(null);
-  const [users, setUsers] = useState<Array<typeof userModel.$inferSelect>>();
+  const [userData, setUserData] = useState<Array<typeof users.$inferSelect>>();
   const [newName, setNewName] = useState<string>('');
 
-  const handleGetUsers = async () => {
+  const handleGetUserData = async () => {
     try {
       const response = await fetch(
         Platform.OS === 'web'
-          ? `http://localhost:${process.env.DATABASE_PORT ?? 3333}/api/users`
-          : `http://10.0.0.13:${process.env.DATABASE_PORT ?? 3333}/api/users`
+          ? `http://localhost:${process.env.DATABASE_PORT ?? 3333}/api/userData`
+          : `http://10.0.0.13:${process.env.DATABASE_PORT ?? 3333}/api/userData`
       );
 
       if (!response?.ok) {
         throw new Error(`Response status: ${response?.status}`);
       }
       const result = await response.json();
-      setUsers(result.data);
+      setUserData(result.data);
     } catch (error) {
-      setUsers([
+      setUserData([
         {
           username: 'pjnalls',
           bio: 'The app is ready yet!',
@@ -53,7 +53,7 @@ export const App = () => {
   const handleCreateUser = async () => {
     try {
       const user = {
-        ...users?.slice(-1)[0],
+        ...userData?.slice(-1)[0],
         id: uuidv4(),
         username: newName,
         email: `${newName}@example.com`,
@@ -74,9 +74,9 @@ export const App = () => {
           body: JSON.stringify(user),
         }
       );
-      handleGetUsers();
+      handleGetUserData();
     } catch (error) {
-      setUsers([
+      setUserData([
         {
           username: 'pjnalls',
           bio: 'The app is ready yet!',
@@ -90,8 +90,9 @@ export const App = () => {
       ]);
     }
   };
+  
   useEffect(() => {
-    handleGetUsers();
+    handleGetUserData();
   }, []);
 
   return (
@@ -115,7 +116,7 @@ export const App = () => {
               testID="heading"
               role="heading"
             >
-              Hey, {(users && users.slice(-1)[0]?.username) ?? 'John Doe'} 👋
+              Hey, {(userData && userData.slice(-1)[0]?.username) ?? 'John Doe'} 👋
             </Text>
           </View>
           <View style={styles.section}>
@@ -143,9 +144,9 @@ export const App = () => {
                     />
                   </Svg>
                   <Text style={[styles.textLg, styles.heroTitleText]}>
-                    {(users &&
+                    {(userData &&
                       new Date(
-                        users.slice(-1)[0]?.updatedAt as string
+                        userData.slice(-1)[0]?.updatedAt as string
                       ).toLocaleString()) ??
                       "I'm only human."}
                   </Text>

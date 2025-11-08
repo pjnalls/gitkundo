@@ -7,6 +7,7 @@
     "serve:api": "npx nx serve api",
     "serve:all": "psql gitkundo_db & nx run-many -t serve",
     "serve:app": "npx nx start frontend",
+    "serve:db": "psql gitkundo_db",
     "test:app": "npx nx test frontend",
     "introspect:db": "npx drizzle-kit introspect",
     "many:nx": "npx nx run-many -t lint test build typecheck --no-cloud",

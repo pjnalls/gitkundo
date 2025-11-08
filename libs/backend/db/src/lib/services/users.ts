@@ -1,8 +1,11 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { users } from '../models/schema.js';
 
-export const getUsers = async (db: ReturnType<typeof drizzle>) =>
-  await db.select().from(users);
+export const getUsers = async (
+  db: ReturnType<typeof drizzle>
+): Promise<Array<typeof users.$inferSelect>> => {
+  return await db.select().from(users);
+}
 
 export const createUser = async (
   db: ReturnType<typeof drizzle>,
